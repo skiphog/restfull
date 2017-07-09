@@ -22,4 +22,19 @@ class Product extends Model
     {
         return $this->status === Product::AVAILABLE_PRODUCT;
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class);
+    }
 }
