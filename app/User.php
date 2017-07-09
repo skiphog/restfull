@@ -29,9 +29,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     *  Special strings (1,0). not integer!
+     */
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
+    /**
+     * Special string (true, false). not boolean!
+     */
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
 
