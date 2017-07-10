@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Scopes\BuyerScope;
+
 /**
  * App\Buyer
  *
@@ -31,6 +33,13 @@ namespace App;
  */
 class Buyer extends User
 {
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new BuyerScope());
+    }
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

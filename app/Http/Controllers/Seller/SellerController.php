@@ -22,14 +22,11 @@ class SellerController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param Seller $seller
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function show($id)
+    public function show(Seller $seller)
     {
-        $seller = Seller::has('products')->findOrFail($id);
-
         return $this->showOne($seller);
     }
 }

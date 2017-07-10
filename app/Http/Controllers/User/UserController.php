@@ -52,7 +52,6 @@ class UserController extends ApiController
      *
      * @param User $user
      * @return \Illuminate\Http\Response
-     * @internal param int $id
      */
     public function show(User $user)
     {
@@ -66,7 +65,6 @@ class UserController extends ApiController
      * @param  \Illuminate\Http\Request $request
      * @param User $user
      * @return \Illuminate\Http\Response
-     * @internal param int $id
      */
     public function update(Request $request, User $user)
     {
