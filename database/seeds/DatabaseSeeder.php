@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         DB::table('category_product')->truncate();
 
-        factory(App\User::class, 200)->create();
+        factory(App\User::class, 1000)->create();
         factory(App\Category::class, 30)->create();
 
         factory(App\Product::class, 1000)->create()->each(function ($product) {

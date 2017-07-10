@@ -4,9 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'data' => User::all()
-        ]);
+        $users = User::all();
+
+        return $this->showAll($users);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return response()->json(['data' => $user], 201);
+        return $this->showOne($user, 201);
     }
 
     /**
@@ -56,9 +56,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json([
-            'data' => $user
-        ]);
+        return $this->showOne($user);
     }
 
     /**
@@ -94,19 +92,19 @@ class UserController extends Controller
 
         if ($request->has('admin')) {
             if (!$user->isVerified()) {
-                return response()->json(['error' => 'Only verified users', 'code' => 409], 409);
+                return $this->errorResponse('Only verified users', 409);
             }
 
             $user->admin = $request->input('admin');
         }
 
         if (!$user->isDirty()) {
-            return response()->json(['error' => 'Need specify diff', 'code' => 422], 422);
+            return $this->errorResponse('Need specify diff', 422);
         }
 
         $user->save();
 
-        return response()->json(['data' => $user]);
+        return $this->showOne($user);
     }
 
     /**
@@ -121,6 +119,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->json(['data' => $user]);
+        return $this->showOne($user);
     }
 }
