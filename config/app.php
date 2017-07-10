@@ -175,8 +175,8 @@ return [
     ],
 
     'local_providers' => [
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
+        //Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
