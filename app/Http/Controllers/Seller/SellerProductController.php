@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use Storage;
 use App\User;
 use App\Seller;
 use App\Product;
@@ -42,9 +43,10 @@ class SellerProductController extends ApiController
 
         $this->validate($request, $rules);
 
+        /** @noinspection NullPointerExceptionInspection */
         $data = array_merge($request->all(), [
             'status'    => Product::UNAVAILABLE_PRODUCT,
-            'image'     => '1.jpg',
+            'image'     => $request->file('image')->store(''),
             'seller_id' => $seller->id
         ]);
 
@@ -86,6 +88,13 @@ class SellerProductController extends ApiController
             }
         }
 
+        if ($request->hasFile('image')) {
+            Storage::delete($product->image);
+
+            /** @noinspection NullPointerExceptionInspection */
+            $product->image = $request->file('image')->store('');
+        }
+
         if ($product->isClean()) {
             return $this->errorResponse('You need to specify a different value to update', 422);
         }
@@ -107,6 +116,7 @@ class SellerProductController extends ApiController
     {
         $this->checkSeller($seller, $product);
         $product->delete();
+        Storage::delete($product->image);
 
         return $this->showOne($product);
     }
