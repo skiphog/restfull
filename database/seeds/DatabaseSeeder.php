@@ -23,6 +23,11 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         DB::table('category_product')->truncate();
 
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
+
         factory(App\User::class, 1000)->create();
         factory(App\Category::class, 30)->create();
 
