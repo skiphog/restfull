@@ -17,18 +17,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $seller_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
  * @property-read \App\Seller $seller
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Transaction[] $transactions
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereSellerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Product extends Model

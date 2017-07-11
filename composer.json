@@ -9,6 +9,7 @@
         "barryvdh/laravel-debugbar": "^2.4",
         "barryvdh/laravel-ide-helper": "^2.4",
         "doctrine/dbal": "^2.5",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },
@@ -45,7 +46,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan ide-helper:models -W",
+            "php artisan ide-helper:models -N",
             "php artisan optimize"
         ]
     },

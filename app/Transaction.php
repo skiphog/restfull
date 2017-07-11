@@ -14,14 +14,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $product_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
  * @property-read \App\Buyer $buyer
  * @property-read \App\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereBuyerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaction whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Transaction extends Model
