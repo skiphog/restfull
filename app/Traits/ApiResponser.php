@@ -25,6 +25,9 @@ trait ApiResponser
 
         $transformer = $collection->first()->transformer;
 
+        $collection = $this->filterData($collection, $transformer);
+        $collection = $this->sortData($collection, $transformer);
+
         return $this->successResponse(
             $this->transformData($collection, $transformer),
             $code
@@ -43,6 +46,28 @@ trait ApiResponser
     protected function showMessage($message, $code = 200)
     {
         return $this->successResponse(['data' => $message], $code);
+    }
+
+    protected function filterData(Collection $collection, $transformation)
+    {
+        foreach ((array)request()->query() as $query => $value) {
+            $attribute = $transformation::getOriginalAttribute($query);
+            if (isset($attribute, $value)) {
+                $collection = $collection->where($attribute, $value);
+            }
+        }
+
+        return $collection;
+    }
+
+    protected function sortData(Collection $collection, $transformation)
+    {
+        if (request()->has('sort_by')) {
+            $attribute = $transformation::getOriginalAttribute(request()->input('sort_by'));
+            return $collection->sortBy->{$attribute};
+        }
+
+        return $collection;
     }
 
     protected function transformData($data, $transformer)
