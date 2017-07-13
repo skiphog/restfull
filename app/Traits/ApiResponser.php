@@ -48,10 +48,16 @@ trait ApiResponser
         return $this->successResponse(['data' => $message], $code);
     }
 
+    /**
+     * @param Collection $collection
+     * @param $transformation \App\Transformers\UserTransformer
+     * @return Collection
+     */
     protected function filterData(Collection $collection, $transformation)
     {
         foreach ((array)request()->query() as $query => $value) {
             $attribute = $transformation::getOriginalAttribute($query);
+
             if (isset($attribute, $value)) {
                 $collection = $collection->where($attribute, $value);
             }
@@ -60,6 +66,11 @@ trait ApiResponser
         return $collection;
     }
 
+    /**
+     * @param Collection $collection
+     * @param $transformation \App\Transformers\UserTransformer
+     * @return Collection
+     */
     protected function sortData(Collection $collection, $transformation)
     {
         if (request()->has('sort_by')) {
