@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Cache;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -30,11 +31,10 @@ trait ApiResponser
         $collection = $this->filterData($collection, $transformer);
         $collection = $this->sortData($collection, $transformer);
         $collection = $this->paginate($collection);
+        $collection = $this->transformData($collection, $transformer);
+        $collection = $this->cacheResponse($collection);
 
-        return $this->successResponse(
-            $this->transformData($collection, $transformer),
-            $code
-        );
+        return $this->successResponse($collection, $code);
     }
 
     protected function paginate(Collection $collection)
@@ -112,4 +112,21 @@ trait ApiResponser
 
         return $transformation->toArray();
     }
+
+    protected function cacheResponse($data)
+    {
+        $url = request()->url();
+        $queryParams = request()->query();
+
+        ksort($queryParams, SORT_STRING);
+
+        $queryString = http_build_query($queryParams);
+        $fullUrl = $url . '?' . $queryString;
+
+
+        return Cache::remember($fullUrl, 30 / 60, function () use ($data) {
+            return $data;
+        });
+    }
+
 }
