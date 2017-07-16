@@ -3,10 +3,24 @@
 namespace App\Transformers;
 
 use App\User;
+use App\Traits\TransformerAttribute;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    use TransformerAttribute;
+
+    protected static $attributes = [
+        'identifier'   => 'id',
+        'name'         => 'name',
+        'email'        => 'email',
+        'isVerified'   => 'verified',
+        'isAdmin'      => 'admin',
+        'creationDate' => 'created_at',
+        'lastChange'   => 'updated_at',
+        'deleteDate'   => 'deleted_at'
+    ];
+
     /**
      * A Fractal transformer.
      *
@@ -32,21 +46,5 @@ class UserTransformer extends TransformerAbstract
                 ],
             ]
         ];
-    }
-
-    public static function getOriginalAttribute($index)
-    {
-        $attributes = [
-            'identifier'   => 'id',
-            'name'         => 'name',
-            'email'        => 'email',
-            'isVerified'   => 'verified',
-            'isAdmin'      => 'admin',
-            'creationDate' => 'created_at',
-            'lastChange'   => 'updated_at',
-            'deleteDate'   => 'deleted_at'
-        ];
-
-        return $attributes[$index] ?? null;
     }
 }

@@ -3,10 +3,23 @@
 namespace App\Transformers;
 
 use App\Category;
+use App\Traits\TransformerAttribute;
 use League\Fractal\TransformerAbstract;
 
 class CategoryTransformer extends TransformerAbstract
 {
+    use TransformerAttribute;
+
+    protected static $attributes = [
+        'identifier'   => 'id',
+        'title'        => 'name',
+        'details'      => 'description',
+        'isVerified'   => 'verified',
+        'creationDate' => 'created_at',
+        'lastChange'   => 'updated_at',
+        'deleteDate'   => 'deleted_at'
+    ];
+
     /**
      * A Fractal transformer.
      *
@@ -46,20 +59,5 @@ class CategoryTransformer extends TransformerAbstract
                 ],
             ]
         ];
-    }
-
-    public static function getOriginalAttribute($index)
-    {
-        $attributes = [
-            'identifier'   => 'id',
-            'title'        => 'name',
-            'details'      => 'description',
-            'isVerified'   => 'verified',
-            'creationDate' => 'created_at',
-            'lastChange'   => 'updated_at',
-            'deleteDate'   => 'deleted_at'
-        ];
-
-        return $attributes[$index] ?? null;
     }
 }

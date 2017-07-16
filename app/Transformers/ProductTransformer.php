@@ -3,10 +3,26 @@
 namespace App\Transformers;
 
 use App\Product;
+use App\Traits\TransformerAttribute;
 use League\Fractal\TransformerAbstract;
 
 class ProductTransformer extends TransformerAbstract
 {
+    use TransformerAttribute;
+
+    protected static $attributes = [
+        'identifier'   => 'id',
+        'title'        => 'name',
+        'details'      => 'description',
+        'stock'        => 'quantity',
+        'situation'    => 'status',
+        'picture'      => 'image',
+        'seller'       => 'seller_id',
+        'creationDate' => 'created_at',
+        'lastChange'   => 'updated_at',
+        'deleteDate'   => 'deleted_at'
+    ];
+
     /**
      * A Fractal transformer.
      *
@@ -50,23 +66,5 @@ class ProductTransformer extends TransformerAbstract
                 ],
             ]
         ];
-    }
-
-    public static function getOriginalAttribute($index)
-    {
-        $attributes = [
-            'identifier'   => 'id',
-            'title'        => 'name',
-            'details'      => 'description',
-            'stock'        => 'quantity',
-            'situation'    => 'status',
-            'picture'      => 'image',
-            'seller'       => 'seller_id',
-            'creationDate' => 'created_at',
-            'lastChange'   => 'updated_at',
-            'deleteDate'   => 'deleted_at'
-        ];
-
-        return $attributes[$index] ?? null;
     }
 }
