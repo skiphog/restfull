@@ -6,7 +6,6 @@ use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserMailChanged extends Mailable
 {
@@ -32,6 +31,6 @@ class UserMailChanged extends Mailable
     public function build()
     {
         return $this->markdown('emails.confirm')
-            ->subject('Пожалуйста, подтвердите свой email');
+            ->subject('Please, confirm you email');
     }
 }
