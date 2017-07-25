@@ -7,6 +7,11 @@ use App\Http\Controllers\ApiController;
 
 class CategoryProductController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('client.credentials')->only(['index']);
+    }
     /**
      * Display a listing of the resource.
      *
