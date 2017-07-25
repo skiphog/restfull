@@ -9,7 +9,6 @@ class ProductController extends ApiController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->middleware('client.credentials')->only(['index', 'show']);
     }
     /**
